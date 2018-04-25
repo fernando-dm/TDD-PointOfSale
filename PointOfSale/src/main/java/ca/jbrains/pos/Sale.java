@@ -3,6 +3,7 @@ package ca.jbrains.pos;
 public class Sale {
     private final Display display;
     private final Catalog catalog;
+    private String scannedPrice;
 
     public Sale(final Display display, final Catalog catalog) {
         this.display = display;
@@ -15,10 +16,22 @@ public class Sale {
             return;
         }
 
-        final String price = catalog.findPrice(barcode);
-        if (price == null)
+        scannedPrice = catalog.findPrice(barcode);
+        if (scannedPrice == null)
             display.displayProductNotFoundMessage(barcode);
         else
-            display.displayPrice(price);
+            display.displayPrice(scannedPrice);
+    }
+
+    public void onTotal() {
+        boolean saleInProgress = (scannedPrice != null);
+        if (saleInProgress){
+            display.displayPurchasetotal();
+        }
+        else{
+            display.displayNoSaleInProgressMessage();
+        }
+
+
     }
 }

@@ -18,4 +18,12 @@ public class Display {
     public void displayProductNotFoundMessage(final String barcode) {
         this.text = String.format("Product not found for %s", barcode);
     }
+
+    public void displayPurchasetotal() {
+        this.text = "Total: "+this.getText();
+    }
+
+    public void displayNoSaleInProgressMessage() {
+        this.text = String.format("No sale in progress");
+    }
 }
