@@ -11,14 +11,18 @@ public class Catalog {
         this.pricesInCentsByBarcode = pricesInCentsByBarcode;
     }
 
-    public String findPrice(final String barcode) {
-        Integer priceInCents = pricesInCentsByBarcode.get(barcode);
+    public String findPricethenFormatPrice(final String barcode) {
+        Integer priceInCents = findPrice(barcode);
 
         if (priceInCents == null) {
             return null;
         } else {
             return formatPrice(priceInCents);
         }
+    }
+
+    public Integer findPrice(String barcode) {
+        return pricesInCentsByBarcode.get(barcode);
     }
 
     public String formatPrice(int priceInCents) {

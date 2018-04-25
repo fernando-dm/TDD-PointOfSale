@@ -16,11 +16,15 @@ public class Sale {
             return;
         }
 
-        scannedPrice = catalog.findPrice(barcode);
-        if (scannedPrice == null)
+        Integer priceInCents = catalog.findPrice(barcode);
+
+        if (priceInCents == null)
             display.displayProductNotFoundMessage(barcode);
-        else
+        else {
+            scannedPrice =catalog.formatPrice(priceInCents);
             display.displayPrice(scannedPrice);
+        }
+
     }
 
     public void onTotal() {

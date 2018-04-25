@@ -160,4 +160,13 @@ metodo terminado, lo muevo a la clase
 
 	. vender 3 items y todos existam: severallItemsAllFound()
 		$1 + $2.1 + $1 ==> $ 3.1
-	
+## Refactor de clase Catalog y metodo 
+-	. Agrego a la clase Catalog (constructor), que me tome una coleccion de String, Integer, a parte de la Coleccion de String, String.
+-	. Modifico metodo findPrice: que busque en la coleccion de enteros
+-	. Agrego metodo formatPrice y se lo meto a findPrice() // Es el lugar correcto para ese metodo??`
+
+
+## Refactor de Catalog y de Sale
+- Refactor de **Catalog** metodo **findPrice()**, por lo que veo, no es un findPrice, sino que dado un barcode, devuelve un precio formateado, aca puedo hacer un split:
+- **findFormatPrice(barcode)** y  **findPrice(barcode)**
+- refactor de **Sale**, metodo **onBarCode()**, quito redundancia y modifico visibilidad de metodos de Catalog, para que los tome directamente (**findPrice** y **formatPrice**), solo mejoro la parte del if de **onBarcode()** 	
