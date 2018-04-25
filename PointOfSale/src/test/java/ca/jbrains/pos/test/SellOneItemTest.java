@@ -1,19 +1,23 @@
 package ca.jbrains.pos.test;
 
+import ca.jbrains.pos.Catalog;
+import ca.jbrains.pos.Display;
+import ca.jbrains.pos.Sale;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
+        Catalog catalog = new Catalog(new HashMap<String, String>() {{
             put("12345", "€ 7,95");
-        }}));
+        }});
+
+        final Sale sale = new Sale(display, catalog);
 
         sale.onBarcode("12345");
 
@@ -56,58 +60,4 @@ public class SellOneItemTest {
         Assert.assertEquals("Scanning error: empty barcode", display.getText());
     }
 
-    private static class Sale {
-        private final Display display;
-        private final Catalog catalog;
-
-        private Sale(final Display display, final Catalog catalog) {
-            this.display = display;
-            this.catalog = catalog;
-        }
-
-        public void onBarcode(final String barcode) {
-            if ("".equals(barcode)) {
-                display.displayEmptyBarcodeMessage();
-                return;
-            }
-
-            final String price = catalog.findPrice(barcode);
-            if (price == null)
-                display.displayProductNotFoundMessage(barcode);
-            else
-                display.displayPrice(price);
-        }
-    }
-
-    private static class Display {
-        private String text;
-
-        public String getText() {
-            return text;
-        }
-
-        private void displayEmptyBarcodeMessage() {
-            this.text = "Scanning error: empty barcode";
-        }
-
-        private void displayPrice(final String price) {
-            this.text = price;
-        }
-
-        private void displayProductNotFoundMessage(final String barcode) {
-            this.text = String.format("Product not found for %s", barcode);
-        }
-    }
-
-    private static class Catalog {
-        private final Map<String, String> pricesByBarcode;
-
-        public Catalog(final Map<String, String> pricesByBarcode) {
-            this.pricesByBarcode = pricesByBarcode;
-        }
-
-        public String findPrice(final String barcode) {
-            return this.pricesByBarcode.get(barcode);
-        }
-    }
 }
