@@ -1,0 +1,163 @@
+# Point of sale
+
+##TODO LIST
+
+BarCode es el input y precio es el output
+
+	. encontrar un producto
+	. Vender one items, 
+	. one Item not found
+	. me equivoque y toque vender y no escanee nada, 0 items (famoso pip ) ==> no sale 
+	in progress, try scanning a product
+
+	. vender multiples items (0,1,999)
+	. acumule precio?
+	. vender 3 items y todos existam
+	. vender 3 items y un producto no exista
+	. vender 3 items y todos no existan
+
+
+
+
+## PASOS (cada uno es un commit)
+	puedo vender cualquier producto a 7.95.
+	puedo vender cualquier producto si conozco el barcode y el precio.
+	test que no encuentra el precio.
+	test con un mensaje mas descriptivo.
+
+	remuevo codigo obsoleto en if, veo de mejorarlo.
+	El controlador(Sale, ya no sabe los detalles del modelo), para eso 
+	introduzco 
+	catalog, donde pongo los metodos que manejan la lista de barcode,p
+	recios ==> findprice, hasbarcode.
+	saco hardcodeos en codigo.
+	reemplazo ifs con high level api (paso de simples ifs a if , pero con
+	 ``metodo 
+	(tiene barcode, find)).
+
+	en clase catalog reemplazo codigo con metadata 
+	(Map<String, String> pricesByBarcode), diccionario de barcode,precio.
+
+	mejoro los if, poniendo un guard clause: 
+	final String price = catalog.findPrice(barcode);
+            if (price == null)
+                display.displayProductNotFoundMessage(barcode);
+            else
+                display.displayPrice(price);
+        }
+	refactorizo y en vez de price en sale, pongo de nombre scannedPrice	
+
+public void onBarcode(final String barcode) {
+
+        if (barcode.isEmpty()){
+            display.displayEmptyBarCode();
+            return;
+        }
+
+        scannedPrice = catalog.findPrice(barcode);
+
+        if (scannedPrice == null){
+            display.displayProductNotFound(barcode);
+        }
+        else {
+            display.displayPrice(scannedPrice);
+        }
+    }
+
+
+# Agrego total: 
+	https://online-training.jbrains.ca/courses/wbitdd-01/lectures/137988
+	. Parece que esto esta armado para vender un solo item, por eso modifico y agrego el precio, para ver un codigo y obtener un precio; parece que solo escanea un SOLO PRODUCTO! Y DE AHI DA EL PRECIO, escanea y da precio, pero no vende!!
+		. modifico la clase test y pongo ScanSeveraltemTest, porque no obtengo el overal de todos los productos!
+
+		. agrego el precio total, muestro como agrego el metodo onTotal() meto un if ahi y creo la variable de metodo price (lo cual es riesgoso), pero solo es para mostrar el total
+
+	metodo onTotal() harcodeo y vendo solo productos a 6.50, pero despues hago display.text = "Total: "+ price (hago publico antes la variable text!)
+
+	ver que hay low level code! eso es un problema!! en onTotal(), son los if que me dicen si es null y muestro un msj o si no es nulo y muestra otro, la recomendacion es crear un metodo que me señale su proposito!
+
+	creo metodo displayPurchaseTotal y lo muevo a display (lo saco de sale)
+
+	muestro como la inversion de dependencias, mueve los detalles al cliente
+	
+
+
+    public void onTotal() {
+        boolean saleInProgress = (scannedPrice != null);
+        
+        if (saleInProgress){
+            display.displayPurchasetotal();
+        }
+        else{
+            display.displayNoSaleInProgressMessage();
+        }
+    }
+
+# Creo clase para Formatear divisa
+Aca hago un alto y veo que tengo, todo en String, tengo que ver una forma de convertir de String a Int, con la divisa que estoy usando, para eso me creo un Test a implemento junit Parameterized
+
+CLASE que convierte de 78.5 a $78.5
+ 
+	list: 
+		789	$7.89
+		520	$5.20
+		400	$4.00
+		  0	$0.00
+		  2	$0.02
+		 37	$0.37
+		418976	$4.18976
+
+	Debo crear una clase test para chequear esto!
+
+Buscar: junit wiki Parameterized test!!
+#### Pasos Junit parameterized
+	Estos decoradores que uso, me permiten correr varios valores contra el test!
+	1) pongo @RunWith(Parameterized.class) sobre el nombre de la clase, para decirle que corra esto
+	2) creo el metodo data(), el cual tiene los valores(data) a correr y antes pongo este decorador: 
+		@Parameters(name="Monetary amount {0} formats to {1}")
+	2) @Parameters(name= "Monetary amount {0} formats to {1}")
+	    public static Collection<Object[]>data(){
+		
+		return Arrays.asList(new Object[][]{
+		        {789, "$7.89"},
+		        {0, "$0"}
+		});
+	    }
+	3) creo un test
+
+
+	Uso @RunWith(Parameterized.class), a esta libreria le digo que es una clase que va a 
+	recibir parametros; para eso me creo el constructor que los carga y con el 
+	decorador @Parameters creo el objeto data, el cual contiene los valores que voy a usar 
+	en el test!!1 que son los mismos que se cargan en el constructor cuando corre
+	 el test o la clase!!
+
+	Incluso puedo poner un mensaje en el test!!, cuando parametrizo los valores
+	@Parameters(name="Monetary amount {0} formats to {1}")
+
+Notar que uso una coleccion de objetos para definir y un Arrays.asList para recorrer; no puedo 
+usar el HashMap de antes, dado que no es un obj iterable, sino que debo accederlo mediante 
+metodos!
+
+
+metodo terminado, lo muevo a la clase
+    debo agregarle al entero formato de divisa 789 ==> 7.89, agrego separador de miles 
+    y de cents y luego le concateno $
+    
+    Esta forma se saca googleando! "$%,.2f"
+    
+    private String formatPrice(int priceInCents) {
+        return String.format("$%,.2f",priceInCents/100.0d);
+    }
+
+##Vender varios productos
+
+. Quiero vender de a varios productos para eso necesito acumular valores!, por eso me creo la coleccion de enteros y el metodo formatPrice, para que me convierta de string a int y me sume!
+
+	creo en catalog un constructor doble que admita string y int, reformateo todos los test y luego borro el constructor simple
+
+
+
+	. vender 3 items y todos existam: severallItemsAllFound()
+		$1 + $2.1 + $1 ==> $ 3.1
+	
