@@ -20,7 +20,7 @@ public class Display {
     }
 
     public void displayPurchasetotal() {
-        this.text = "Total: "+this.getText();
+        this.text = this.getText();
     }
 
     public void displayNoSaleInProgressMessage() {
