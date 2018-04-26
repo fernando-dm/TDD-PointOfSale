@@ -26,4 +26,9 @@ public class Display {
     public void displayNoSaleInProgressMessage() {
         this.text = String.format("No sale in progress");
     }
+
+    public String formatPrice(int priceInCents) {
+        return String.format("$%,.2f",priceInCents/100.0d);
+    }
 }
+
