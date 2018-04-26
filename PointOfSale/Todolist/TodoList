@@ -301,7 +301,9 @@ metodo terminado, lo muevo a la clase
         Assert.assertEquals(795, computePurchaseTotal(Arrays.asList(794,1)));
                 
 
-
+-	Refactor de computePurchaseTotal(), saco todos los if, dado que se resuelven con la linea de funcional.
+	
+	return pendingPurchaseItemPrices.stream().reduce(0, (sum, each)-> sum+each);
 
 #### Tips
 -	siempre probar los 3 Test.

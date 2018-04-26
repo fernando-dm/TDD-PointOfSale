@@ -50,7 +50,7 @@ public class SellMultipleItems {
     }
 
     @Test
-    @Ignore("Por ahora")
+//    @Ignore("Por ahora")
     public void severalItemsAllFound() {
         final Catalog catalog = new Catalog(new HashMap<String, Integer>(){{
                                                                             put("1", 789);
