@@ -6,7 +6,7 @@ import java.util.Collection;
 public class Sale {
     private final Display display;
     private final Catalog catalog;
-    private Collection<Integer> scannedPrices = new ArrayList<>();
+    private Collection<Integer> pendingPurchaseItemPrices = new ArrayList<>();
 
     public Sale(final Display display, final Catalog catalog) {
         this.display = display;
@@ -24,16 +24,16 @@ public class Sale {
         if (priceInCents == null)
             display.displayProductNotFoundMessage(barcode);
         else {
-            scannedPrices.add(priceInCents);
+            pendingPurchaseItemPrices.add(priceInCents);
             display.displayPrice(priceInCents);
         }
     }
 
     public void onTotal() {
-        boolean saleInProgress = (!scannedPrices.isEmpty());
+        boolean saleInProgress = (!pendingPurchaseItemPrices.isEmpty());
 
         if (saleInProgress){
-            display.displayPurchasetotal(display.formatPrice(scannedPrices.iterator().next()));
+            display.displayPurchasetotal(display.formatPrice(pendingPurchaseItemPrices.iterator().next()));
         }
         else{
             display.displayNoSaleInProgressMessage();

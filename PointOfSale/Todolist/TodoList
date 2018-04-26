@@ -206,3 +206,6 @@ metodo terminado, lo muevo a la clase
             if (saleInProgress){
                 display.displayPurchasetotal(display.formatPrice(scannedPrices.iterator().next()));
 `
+
+-	Aca veo que nace un **Dominio**, al ver en **Sale** en el metodo **onTotal**, la variable **scannedPrices**, que es la encargada de sumarizar las ventas.
+-	modifico y le pongo un nombre mas apropiado, veo que aun la venta no se concreto y no se sumo, asi que: **scannedPrices** pasa a **pendingPurchaseItemPrices**, esto es la diferencia entre un **nombre estructural** y un **intention reveal name** .
