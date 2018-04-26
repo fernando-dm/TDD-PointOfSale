@@ -19,8 +19,8 @@ public class Display {
         this.text = String.format("Product not found for %s", barcode);
     }
 
-    public void displayPurchasetotal(String priceInText) {
-        this.text = priceInText;
+    public void displayPurchaseTotal(Integer price) {
+        this.text = formatPrice(price);
     }
 
     public void displayNoSaleInProgressMessage() {
