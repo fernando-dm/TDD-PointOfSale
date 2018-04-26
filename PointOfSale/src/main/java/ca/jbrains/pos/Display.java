@@ -11,7 +11,7 @@ public class Display {
         this.text = "Scanning error: empty barcode";
     }
 
-    public void displayPrice(final String price) {
+    public void displayText(final String price) {
         this.text = price;
     }
 
@@ -19,8 +19,8 @@ public class Display {
         this.text = String.format("Product not found for %s", barcode);
     }
 
-    public void displayPurchasetotal() {
-        this.text = this.getText();
+    public void displayPurchasetotal(String priceInText) {
+        this.text = priceInText;
     }
 
     public void displayNoSaleInProgressMessage() {
@@ -30,5 +30,10 @@ public class Display {
     public String formatPrice(int priceInCents) {
         return String.format("$%,.2f",priceInCents/100.0d);
     }
+
+    public void displayPrice(Integer priceInCents) {
+        displayText(formatPrice(priceInCents));
+    }
+
 }
 

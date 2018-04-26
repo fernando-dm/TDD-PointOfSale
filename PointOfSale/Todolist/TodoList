@@ -186,3 +186,23 @@ metodo terminado, lo muevo a la clase
 -	refactorizo **Catalog** y muevo el metodo **format()** a **Display** donde tiene mas sentido! y borro codigo obsoleto! 
 -	Borro metodo **findPricethenFormatPrice()**, ya no lo necesito, porque inserte esa validacion en Sales (hice split)
 -	quito el 1er Collection de stringString
+
+-	refactor en **Sales** me doy cuenta que:
+
+				scannedPrice =display.formatPrice(priceInCents);
+				display.displayPrice(scannedPrice);
+				
+-	Podrian agruparse, y veo tambien que **displayPrice()** en realidad no muestra un Price, sino que un Texto, por eso **displayText()**
+
+-	en Sales, solo quedaría **displayPrice(priceInCents)** (en base al refactor de **Display**).
+-	Creo variable para sumarizar, es una variable de tipo Collection que es un ArraysList.
+-		        else {
+				    scannedPrices.add(priceInCents);
+				    display.displayPrice(priceInCents);
+				}
+-	en metodo **onTotal()** modifico, el metodo el input de **displayPurchaseTotal()** para que me acepte la lista de precios a sumar
+
+`            boolean saleInProgress = (!scannedPrices.isEmpty());
+            if (saleInProgress){
+                display.displayPurchasetotal(display.formatPrice(scannedPrices.iterator().next()));
+`

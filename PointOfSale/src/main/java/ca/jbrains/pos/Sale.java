@@ -1,9 +1,12 @@
 package ca.jbrains.pos;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Sale {
     private final Display display;
     private final Catalog catalog;
-    private String scannedPrice;
+    private Collection<Integer> scannedPrices = new ArrayList<>();
 
     public Sale(final Display display, final Catalog catalog) {
         this.display = display;
@@ -21,15 +24,16 @@ public class Sale {
         if (priceInCents == null)
             display.displayProductNotFoundMessage(barcode);
         else {
-            scannedPrice =display.formatPrice(priceInCents);
-            display.displayPrice(scannedPrice);
+            scannedPrices.add(priceInCents);
+            display.displayPrice(priceInCents);
         }
     }
 
     public void onTotal() {
-        boolean saleInProgress = (scannedPrice != null);
+        boolean saleInProgress = (!scannedPrices.isEmpty());
+
         if (saleInProgress){
-            display.displayPurchasetotal();
+            display.displayPurchasetotal(display.formatPrice(scannedPrices.iterator().next()));
         }
         else{
             display.displayNoSaleInProgressMessage();
