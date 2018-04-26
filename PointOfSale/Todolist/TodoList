@@ -2,7 +2,7 @@
 #Inbox
 
 ## Stories
-* As a cachier, I need a way to enter the price of a product by hand, so I can sell a producto to a customer even when the Point of Sale Teminal doenst find a price for that product.
+* As a cashier, I need a way to enter the price of a product by hand, so I can sell a producto to a customer even when the Point of Sale Teminal doenst find a price for that product.
 
 * As a store manager, I want to be reminded that a products price was not found, so that I can fix the price list to avoid this happening again.
 
@@ -23,10 +23,7 @@ BarCode es el input y precio es el output.
 	in progress, try scanning a product
 
 	. vender multiples items (0,1,999)
-	. acumule precio?
-	. vender 3 items y todos existam
-	. vender 3 items y un producto no exista
-	. vender 3 items y todos no existan
+	. acumule precio y muestre total
 
 
 
