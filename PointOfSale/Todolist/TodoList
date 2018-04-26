@@ -183,4 +183,6 @@ metodo terminado, lo muevo a la clase
             scannedPrice =catalog.formatPrice(priceInCents);
             display.displayPrice(scannedPrice);
         }
--	. refactorizo **Catalog** y muevo el metodo **formatPrice()** a **Display** donde tiene mas sentido! y borro codigo obsoleto!! (quito el 1er Collection de stringString)
+-	refactorizo **Catalog** y muevo el metodo **format()** a **Display** donde tiene mas sentido! y borro codigo obsoleto! 
+-	Borro metodo **findPricethenFormatPrice()**, ya no lo necesito, porque inserte esa validacion en Sales (hice split)
+-	quito el 1er Collection de stringString
