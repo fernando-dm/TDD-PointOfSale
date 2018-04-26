@@ -12,13 +12,11 @@ import java.util.HashMap;
 public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
-        final Display display = new Display();
-        Catalog catalog = new Catalog(  new HashMap<String, String>() {{
-                                            put("12345", "$ 7,95");}},
-                                        new HashMap<String, Integer>() {{
+        Catalog catalog = new Catalog(
+                new HashMap<String, Integer>() {{
                                             put("12345", 795);}}
                             );
-
+        final Display display = new Display();
         final Sale sale = new Sale(display, catalog);
 
         sale.onBarcode("12345");
@@ -29,9 +27,7 @@ public class SellOneItemTest {
     @Test
     public void anotherProductFound() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new Catalog(new HashMap<String, String>(){{
-            put("12345", "$ 7,95");
-            put("2345", "$ 12,50"); }},
+        final Sale sale = new Sale(display, new Catalog(
 
                 new HashMap<String, Integer>() {{
                     put("12345", 795);
@@ -47,9 +43,7 @@ public class SellOneItemTest {
     @Test
     public void productNotFound() {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("123451", "$ 7,95");
-            put("2345", "$ 12,50"); }},
+        final Sale sale = new Sale(display, new Catalog(
                 new HashMap<String, Integer>() {{
                     put("12345", 795);
                     put("2345", 125);
@@ -64,7 +58,7 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new Catalog(Collections.emptyMap(),Collections.emptyMap()));
+        final Sale sale = new Sale(display, new Catalog(Collections.emptyMap()));
 
         sale.onBarcode("");
 
@@ -74,10 +68,8 @@ public class SellOneItemTest {
     @Test
     public void getTotalOfAProduct() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display,new Catalog(new HashMap<String,String>(){{
-                                                            put("012345", "$ 7,95");
-                                                            put("2345", "$ 12,50"); }},
-                                                        new HashMap<String, Integer>() {{
+        final Sale sale = new Sale(display,new Catalog(
+                new HashMap<String, Integer>() {{
                                                             put("12345", 795);
                                                             put("2345", 125);}}
         ));

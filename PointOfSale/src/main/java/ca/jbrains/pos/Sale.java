@@ -24,7 +24,6 @@ public class Sale {
             scannedPrice =catalog.formatPrice(priceInCents);
             display.displayPrice(scannedPrice);
         }
-
     }
 
     public void onTotal() {

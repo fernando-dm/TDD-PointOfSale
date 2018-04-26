@@ -154,8 +154,8 @@ metodo terminado, lo muevo a la clase
 
 . Quiero vender de a varios productos para eso necesito acumular valores!, por eso me creo la coleccion de enteros y el metodo formatPrice, para que me convierta de string a int y me sume!
 
-	creo en catalog un constructor doble que admita string y int, reformateo todos los test y luego borro el constructor simple
-
+`	creo en catalog un constructor doble que admita string y int, reformateo todos los test y luego borro el constructor simple
+`
 
 
 	. vender 3 items y todos existam: severallItemsAllFound()
@@ -170,3 +170,17 @@ metodo terminado, lo muevo a la clase
 - Refactor de **Catalog** metodo **findPrice()**, por lo que veo, no es un findPrice, sino que dado un barcode, devuelve un precio formateado, aca puedo hacer un split:
 - **findFormatPrice(barcode)** y  **findPrice(barcode)**
 - refactor de **Sale**, metodo **onBarCode()**, quito redundancia y modifico visibilidad de metodos de Catalog, para que los tome directamente (**findPrice** y **formatPrice**), solo mejoro la parte del if de **onBarcode()** 	
+
+## sumarizo las ventas
+-	. Dado el metodo **onBarCode()** modifico para poder sumarizar
+
+
+        Integer priceInCents = catalog.findPrice(barcode);
+
+        if (priceInCents == null)
+            display.displayProductNotFoundMessage(barcode);
+        else {
+            scannedPrice =catalog.formatPrice(priceInCents);
+            display.displayPrice(scannedPrice);
+        }
+-	. refactorizo **Catalog** y muevo el metodo **formatPrice()** a **Display** donde tiene mas sentido! y borro codigo obsoleto!! (quito el 1er Collection de stringString)
