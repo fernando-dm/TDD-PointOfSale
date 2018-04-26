@@ -64,7 +64,7 @@ public class SellMultipleItems {
 
         sale.onTotal();
 
-        Assert.assertEquals("No sale in progress", display.getText());
+        Assert.assertEquals("$9.14", display.getText());
     }
 
 }

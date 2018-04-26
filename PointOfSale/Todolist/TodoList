@@ -265,6 +265,44 @@ metodo terminado, lo muevo a la clase
 
 -	Es importante aclarar que este nuevo metodo **computePurchaseTotal()** es **contextFree**, no le importa cuantas ventas representa!!
 
+## sumarizo las ventas III Parte, IMPLEMENTACION FINAL
+-	Me creo un test para probar la sumarizacion y el metodo de Sale **computePurchaseTotal()**
+- 	La idea es crear los 3 test de siempre (0, 1, 5), pero solo probando el metodo encargado de sumarizar, que en este caso es **computePurchaseTotal()**
+-	Por eso converti a static ese metodo, para testearlo directamente, sino desde otra clase no me lo toma, sin antes no instanciar la clase Sale()
+
+-	Assert.assertEquals(0, computePurchaseTotal(Collections.<Integer>emptyList()));
+-   tuve que abstraer el comportamiento de compute, aunque le di caracter de static, porque no me dejaba meter la lista directamente.
+
+
+    private int computePurchaseTotal(List<Integer>purchaseItemPrices) {
+        return Sale.computePurchaseTotal(purchaseItemPrices).intValue();
+    }
+
+
+    public static Integer computePurchaseTotal(Collection<Integer> pendingPurchaseItemPrices) {
+        if (pendingPurchaseItemPrices.isEmpty())
+            return 0;
+        else
+            if(pendingPurchaseItemPrices.size()==1)
+                return pendingPurchaseItemPrices.iterator().next();
+            else
+                // a una cadena la reduzco: iterando y guardando sus valores en sum
+                //  si quisiera hacer sobre un objeto, antes del reduce hago un map y me quedo con el valor y luego sigo!
+		// return pendingPurchaseItemPrices.stream().map(e->e.valor()).reduce(0, (sum, each)-> sum+each);
+                return pendingPurchaseItemPrices.stream().reduce(0, (sum, each)-> sum+each);
+    }
+
+-   Para un Item.
+
+        Assert.assertEquals(795, computePurchaseTotal(Collections.singletonList(795)));
+    
+-   Para 5 Items:
+
+        Assert.assertEquals(795, computePurchaseTotal(Arrays.asList(794,1)));
+                
+
+
+
 #### Tips
 -	siempre probar los 3 Test.
 
@@ -274,3 +312,4 @@ metodo terminado, lo muevo a la clase
 		
 -	**El nombre de una variable es incidental o esential?, si vemos el nombre Catalog en dos años, lo entendemos?.**
 -	Tips nombrar esta variable: scan de  precios, eso describe el **how**, y  el **why** depende del precio, entonces pasa a ser **currentCustomersPendingPurchaseItemPrices**,  tambien depende de a quien le estoy vendiendo!.
+
