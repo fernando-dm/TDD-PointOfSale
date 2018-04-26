@@ -1,8 +1,20 @@
 # Point of sale
+#Inbox
+
+## Stories
+* As a cachier, I need a way to enter the price of a product by hand, so I can sell a producto to a customer even when the Point of Sale Teminal doenst find a price for that product.
+
+* As a store manager, I want to be reminded that a products price was not found, so that I can fix the price list to avoid this happening again.
+
+## Design Issues
+* Introduce whole Value for a price.
+
+## Performance
+* what happens when we scan 2000 products to sell to a single customer?.
 
 ##TODO LIST
 
-BarCode es el input y precio es el output
+BarCode es el input y precio es el output.
 
 	. encontrar un producto
 	. Vender one items, 
@@ -211,9 +223,13 @@ metodo terminado, lo muevo a la clase
 -	modifico y le pongo un nombre mas apropiado, veo que aun la venta no se concreto y no se sumo, asi que: **scannedPrices** pasa a **pendingPurchaseItemPrices**, esto es la diferencia entre un **nombre estructural** y un **intention reveal name** .
 
 -	refactor de **displayPurchaseTotal** le quito el wrap que formateaba antes y se lo agrego directo en el metodo.
-- Refactorizo **onTotal**; display.displayPurchaseTotal(pendingPurchaseItemPrices.iterator().next()); y quito ese input, y se me revela un Model Behaviour enseguida
+- Refactorizo **onTotal**; display.displayPurchaseTotal(pendingPurchaseItemPrices.iterator().next()); y quito ese input, y se me revela un Model Behaviour enseguida.
 
 	    private Integer pendingPurchaseTotal() {
 		return pendingPurchaseItemPrices.iterator().next();
 	    }
+
+-	**La separacion en ventas de onBarcode y onTotal es crucial para sumarizar**
+-	refactor en onTotal, veola variable saleInProgress, esta de mas, dado que pendingPurchaseTotal es lo mismo
+-	refactor de displayText(text) es mejor que price, me fijo si hay otra clase que lllame a este metodo, de no haberlo lo pongo lo **private**	    
 	 

@@ -24,6 +24,7 @@ public class Sale {
         if (priceInCents == null)
             display.displayProductNotFoundMessage(barcode);
         else {
+            // REFACTOR eventually a shop cart?
             pendingPurchaseItemPrices.add(priceInCents);
             display.displayPrice(priceInCents);
         }
