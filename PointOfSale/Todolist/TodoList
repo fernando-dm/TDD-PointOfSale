@@ -233,3 +233,10 @@ metodo terminado, lo muevo a la clase
 -	refactor en onTotal, veola variable saleInProgress, esta de mas, dado que pendingPurchaseTotal es lo mismo
 -	refactor de displayText(text) es mejor que price, me fijo si hay otra clase que lllame a este metodo, de no haberlo lo pongo lo **private**	    
 	 
+## sumarizo las ventas II Parte, IMPLEMENTACION
+-	Creo Clase test para vender varios items!
+-	empiezo con el test basico NotFound, escaneo varios productos, le paso un catalogo vacio y obtengo un No sale in progress
+
+#### Tips
+-	**El nombre de una variable es incidental o esential?, si vemos el nombre Catalog en dos años, lo entendemos?.**
+-	Tips nombrar esta variable: scan de  precios, eso describe el **how**, y  el **why** depende del precio, entonces pasa a ser **currentCustomersPendingPurchaseItemPrices**,  tambien depende de a quien le estoy vendiendo!.
