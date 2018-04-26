@@ -237,6 +237,40 @@ metodo terminado, lo muevo a la clase
 -	Creo Clase test para vender varios items!
 -	empiezo con el test basico NotFound, escaneo varios productos, le paso un catalogo vacio y obtengo un No sale in progress
 
+-	Spliteo la funcion de **pendingPurchaseTotal()**.
+
+ 
+	    public void onTotal() {
+		boolean saleInProgress = (!pendingPurchaseItemPrices.isEmpty());
+
+    public void onTotal() {
+	boolean saleInProgress = (!pendingPurchaseItemPrices.isEmpty());
+
+	if (saleInProgress){
+	    display.displayPurchaseTotal(pendingPurchaseTotal());
+	}
+	else{
+	    display.displayNoSaleInProgressMessage();
+	}
+    }
+
+    private Integer pendingPurchaseTotal() {
+	return computePurchaseTotal(pendingPurchaseItemPrices);
+    }
+
+    private Integer computePurchaseTotal(Collection<Integer> pendingPurchaseItemPrices) {
+	return pendingPurchaseItemPrices.iterator().next();
+    }
+
+
+-	Es importante aclarar que este nuevo metodo **computePurchaseTotal()** es **contextFree**, no le importa cuantas ventas representa!!
+
 #### Tips
+-	siempre probar los 3 Test.
+
+		.* **1 - No Item.**		
+		.* **2 - One Item.**		
+		.* **3 - Five Item.**
+		
 -	**El nombre de una variable es incidental o esential?, si vemos el nombre Catalog en dos años, lo entendemos?.**
 -	Tips nombrar esta variable: scan de  precios, eso describe el **how**, y  el **why** depende del precio, entonces pasa a ser **currentCustomersPendingPurchaseItemPrices**,  tambien depende de a quien le estoy vendiendo!.

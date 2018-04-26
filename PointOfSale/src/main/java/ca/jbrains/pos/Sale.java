@@ -42,6 +42,10 @@ public class Sale {
     }
 
     private Integer pendingPurchaseTotal() {
+        return computePurchaseTotal(pendingPurchaseItemPrices);
+    }
+
+    public static Integer computePurchaseTotal(Collection<Integer> pendingPurchaseItemPrices) {
         return pendingPurchaseItemPrices.iterator().next();
     }
 }
