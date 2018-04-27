@@ -120,22 +120,38 @@ CLASE que convierte de 78.5 a $78.5
 
 Buscar: junit wiki Parameterized test!!
 #### Pasos Junit parameterized
-	Estos decoradores que uso, me permiten correr varios valores contra el test!
-	1) pongo @RunWith(Parameterized.class) sobre el nombre de la clase, para decirle que corra esto
-	2) creo el metodo data(), el cual tiene los valores(data) a correr y antes pongo este decorador: 
-		@Parameters(name="Monetary amount {0} formats to {1}")
-	2) @Parameters(name= "Monetary amount {0} formats to {1}")
-	    public static Collection<Object[]>data(){
-		
-		return Arrays.asList(new Object[][]{
-		        {789, "$7.89"},
-		        {0, "$0"}
-		});
-	    }
-	3) creo un test
+`	Estos decoradores que uso, me permiten correr varios valores contra el test!.`
+
+   1) pongo @RunWith(Parameterized.class) sobre el nombre de la clase, para decirle que corra esto.
+
+   2) creo el metodo data(), el cual tiene los valores(data) a correr y antes pongo este decorador:
+    
+    @Parameters(name="Monetary amount {0} formats to {1}")   
+            public static Collection<Object[]>data(){
+            
+            return Arrays.asList(new Object[][]{
+                    {789, "$7.89"},
+                    {0, "$0"}
+            });
+            }
+    3) creo un constructor para la clase, la cual se encarga de tomar automaticamente lo valores de data.
+	4) creo el Assert:
+	 
+	    @Test
+        public void formatPriceTest(){
+    
+            Assert.assertEquals(formatExpected, formatPrice(formatInCents));
+        }
+	
+    5) metodo a testear
+	        // debo agregarle al entero formato de divisa 789 ==> 7.89, agrego separador de miles y de cents y luego le concateno $
+            // Esta forma se saca googleando! "$%,.2f"
+            private String formatPrice(int priceInCents) {
+                return String.format("$%,.2f",priceInCents/100.0d);
+            }
 
 
-	Uso @RunWith(Parameterized.class), a esta libreria le digo que es una clase que va a 
+   Uso @RunWith(Parameterized.class), a esta libreria le digo que es una clase que va a 
 	recibir parametros; para eso me creo el constructor que los carga y con el 
 	decorador @Parameters creo el objeto data, el cual contiene los valores que voy a usar 
 	en el test!!1 que son los mismos que se cargan en el constructor cuando corre

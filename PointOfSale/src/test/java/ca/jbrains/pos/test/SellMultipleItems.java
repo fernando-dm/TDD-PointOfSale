@@ -67,4 +67,32 @@ public class SellMultipleItems {
         Assert.assertEquals("$9.14", display.getText());
     }
 
+    @Test
+    public void severalItemsSomeNotFound() {
+        final Catalog catalog = new Catalog(new HashMap<String, Integer>(){{
+            put("1", 100);
+            put("2", 200);
+            put("3", 300);
+            put("4", 400);
+            put("5", 500);
+            put("6", 600);
+
+        }});
+        final Display display = new Display();
+        final Sale sale = new Sale(display,catalog);
+
+        sale.onBarcode("1");
+        sale.onBarcode("2");
+        sale.onBarcode("3");
+        sale.onBarcode("4");
+        sale.onBarcode("50");
+        sale.onBarcode("6");
+        sale.onBarcode("60");
+
+
+        sale.onTotal();
+
+        Assert.assertEquals("$16.00", display.getText());
+    }
+
 }
