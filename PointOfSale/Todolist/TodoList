@@ -45,7 +45,23 @@ We begin with a primer on Presenter-First Design, a discussion about balancing e
 - Resumen: Creo este cliente 1ero (que empieza con Sale) y diseño que necesito de Catalog y de Display y luego implemento Catalog y Display 
 
 
+Test List
 
+- Sell One Item:
 
+ - Controller job: 
+	-Handle incoming event from the user and coordinate the model on the view.
+	-Cause the right view to be displayed to the user.
+	-Lo mismo que en una webapp: Controller update the model, and then take the data that got the model and enhanses the view, and the view render to the user.
 
+	- Que vista le muestro al user?, ahora la diferencia es: ¿Que muestro?: Deberia ser algo que muestre un precio!, no quiero los detalles , solo ver el precio
+	- Product Found.
+	- Product Not Found.
+	- Empty.
+
+	-El goal es display el precio en el display., donde voy a mostrar esos $7.95; asi lo tengo que pensar.
+	
+ -Jmock: El context es:
+min 1524
+https://online-training.jbrains.ca/courses/8788/lectures/139065
  
